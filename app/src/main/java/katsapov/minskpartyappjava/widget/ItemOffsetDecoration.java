@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Виджет по работе с представлением ячейками (разделители и тд)
+ * Виджет по работе с отображением ячейками (смещение и тд)
  *
  * @author Katsapov Sergey
  *

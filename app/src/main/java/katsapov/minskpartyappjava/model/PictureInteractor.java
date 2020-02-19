@@ -20,7 +20,7 @@ public class PictureInteractor implements Interactor {
             "Vulcans"
     };
 
-    private final static int pictureImages[] = {
+    private final static int[] pictureImages = {
             R.drawable.cohete_flat,
             R.drawable.london_flat,
             R.drawable.material_flat,

@@ -11,7 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import katsapov.minskpartyappjava.R;
-import katsapov.minskpartyappjava.fragment.LinearHorizontalFragment;
+import katsapov.minskpartyappjava.fragment.FunctionalInfoFragment;
+import katsapov.minskpartyappjava.fragment.PartyInfoFragment;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -21,15 +22,20 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.info_activity);
         ButterKnife.bind(this);
         setupViews();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        Fragment fragment = new LinearHorizontalFragment();
-        ft.replace(R.id.container, fragment, "fragment");
-        ft.commit();
+        FragmentTransaction partyTransaction = fragmentManager.beginTransaction();
+        Fragment partyFragment = new PartyInfoFragment();
+        partyTransaction.replace(R.id.frHorizontalInfoList, partyFragment, "party_fragment");
+        partyTransaction.commit();
+
+        FragmentTransaction functionalTransaction = fragmentManager.beginTransaction();
+        Fragment functionalFragment = new FunctionalInfoFragment();
+        functionalTransaction.replace(R.id.frLinearInfoList, functionalFragment, "functional_fragment");
+        functionalTransaction.commit();
     }
 
     private void setupViews() {

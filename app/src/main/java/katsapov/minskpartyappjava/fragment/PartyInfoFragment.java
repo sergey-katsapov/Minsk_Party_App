@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,12 +26,12 @@ import katsapov.minskpartyappjava.presenter.RecyclerItemClickListener;
 import katsapov.minskpartyappjava.view.PictureMvpView;
 import katsapov.minskpartyappjava.widget.ItemOffsetDecoration;
 
-public abstract class BaseFragment extends Fragment implements PictureMvpView, RecyclerItemClickListener {
+public class PartyInfoFragment extends Fragment implements PictureMvpView, RecyclerItemClickListener {
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
     private PicturePresenter picturePresenter;
-    RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter adapter;
 
     @Nullable
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public abstract class BaseFragment extends Fragment implements PictureMvpView, R
     @Override public void setItems(ArrayList<Picture> pictureList) {
         adapter = getAdapter(pictureList);
         recyclerView.setAdapter(adapter);
-
         if(adapter instanceof AdapterExample)
             ((AdapterExample) adapter).setRecyclerItemClickListener(this);
     }
@@ -82,15 +82,27 @@ public abstract class BaseFragment extends Fragment implements PictureMvpView, R
     }
 
     private void setupRecyclerView() {
-        if(getLayoutManager() != null)
-            recyclerView.setLayoutManager(getLayoutManager());
-
+        recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.addItemDecoration(new ItemOffsetDecoration(recyclerView.getContext(), R.dimen.item_decoration));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
-    protected abstract int getLayout();
-    protected abstract RecyclerView.LayoutManager getLayoutManager();
-    protected abstract RecyclerView.Adapter getAdapter(ArrayList<Picture> pictureList);
+    private int getLayout() {
+        return R.layout.fragment_base;
+    }
+
+    private RecyclerView.LayoutManager getLayoutManager() {
+        return getLinearLayoutManager();
+    }
+
+    private LinearLayoutManager getLinearLayoutManager() {
+        return new LinearLayoutManager(
+                getActivity(),
+                LinearLayoutManager.HORIZONTAL,
+                false);
+    }
+
+    private RecyclerView.Adapter getAdapter(ArrayList<Picture> pictureList) {
+        return new AdapterExample(pictureList, R.layout.party_info_item);
+    }
 }

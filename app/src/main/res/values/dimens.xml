@@ -3,4 +3,22 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="item_decoration">6dp</dimen>
+
+    //party item
+    <dimen name="dimensions_party_info_item">16dp</dimen>
+    <dimen name="text_size_party_item">22sp</dimen>
+    <dimen name="layout_width_party_item">300dp</dimen>
+    <dimen name="layout_height_party_item">200dp</dimen>
+    <dimen name="corner_radius_party_item">4dp</dimen>
+
+    //functional item
+    <dimen name="layout_height_functional_item">300dp</dimen>
+
+    //activity info
+    <dimen name="tv_padding_main_Activity">16dp</dimen>
+    <dimen name="margin_bottom_info_activity">6dp</dimen>
+    <dimen name="tv_text_size_info">18sp</dimen>
+    <dimen name="margin_start_functional_item">20dp</dimen>
+    <dimen name="margin_bottom_functional_item">220dp</dimen>
+    <dimen name="tv_text_size_functional_item">24sp</dimen>
 </resources>

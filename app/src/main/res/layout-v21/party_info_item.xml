@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300dp"
-    android:layout_height="200dp"
-    android:minWidth="210dp"
-    app:cardCornerRadius="4dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/layout_width_party_item"
+    android:layout_height="@dimen/layout_height_party_item"
+    app:cardCornerRadius="@dimen/corner_radius_party_item">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            style="@style/Selector.Item"
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,12 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Medium Text"
+            android:layout_marginBottom="@dimen/dimensions_party_info_item"
+            android:layout_marginStart="@dimen/dimensions_party_info_item"
+            tools:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_party_item" />
     </FrameLayout>
 
 </androidx.cardview.widget.CardView>
