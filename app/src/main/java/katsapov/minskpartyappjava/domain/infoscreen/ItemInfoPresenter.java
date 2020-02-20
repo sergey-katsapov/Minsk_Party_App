@@ -1,7 +1,7 @@
-package katsapov.minskpartyappjava.domain;
+package katsapov.minskpartyappjava.domain.infoscreen;
 
 /**
- * Интерфейст работы при выборе info_item
+ * Интерфейс работы при выборе info_item
  *
  * onItemSelected - обработка при выборе ячейки
  *

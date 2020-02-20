@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1082671793567",
+    "firebase_url": "https://minskpartyappjava.firebaseio.com",
+    "project_id": "minskpartyappjava",
+    "storage_bucket": "minskpartyappjava.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082671793567:android:3d8cb1b0fbb5dc232c29aa",
+        "android_client_info": {
+          "package_name": "katsapov.minskpartyappjava"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082671793567-nf15g1aon7rafncv7qamdurpflbkko5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKQVYGBIHL4yQqQ5dmeX3A8AmfmFrcZvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082671793567-nf15g1aon7rafncv7qamdurpflbkko5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

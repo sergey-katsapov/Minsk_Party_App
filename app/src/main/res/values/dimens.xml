@@ -21,4 +21,7 @@
     <dimen name="margin_start_functional_item">20dp</dimen>
     <dimen name="margin_bottom_functional_item">220dp</dimen>
     <dimen name="tv_text_size_functional_item">24sp</dimen>
+
+    //размер лого
+    <dimen name="logo_w_h">100dp</dimen>
 </resources>

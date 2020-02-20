@@ -1,21 +1,19 @@
-package katsapov.minskpartyappjava.domain;
+package katsapov.minskpartyappjava.domain.infoscreen;
 
 import java.util.ArrayList;
 
 import katsapov.minskpartyappjava.data.entities.Picture;
+import katsapov.minskpartyappjava.data.repository.FunctionsInfoScreenRepository;
 import katsapov.minskpartyappjava.data.repository.LoaderListener;
-import katsapov.minskpartyappjava.data.repository.PartyInfoScreenRepository;
 import katsapov.minskpartyappjava.presentation.PictureMvpView;
 import katsapov.minskpartyappjava.presentation.base.BasePresenter;
 
-public class PartyItemInfoInteractor implements ItemInfoPresenter, BasePresenter<PictureMvpView>, LoaderListener {
+public class FunctionsItemInfoInteractor implements ItemInfoPresenter, BasePresenter<PictureMvpView>, LoaderListener {
 
     private PictureMvpView pictureMvpView;
-    private final PartyInfoScreenRepository зartyInfoScreenRepository;
+    private final FunctionsInfoScreenRepository functionsInfoScreenRepository;
 
-    public PartyItemInfoInteractor() {
-        зartyInfoScreenRepository = new PartyInfoScreenRepository();
-    }
+    public FunctionsItemInfoInteractor() { functionsInfoScreenRepository = new FunctionsInfoScreenRepository(); }
 
     @Override
     public void attachedView(PictureMvpView view) {
@@ -30,9 +28,15 @@ public class PartyItemInfoInteractor implements ItemInfoPresenter, BasePresenter
 
     @Override public void onResume() {
         pictureMvpView.showProgress();
-        зartyInfoScreenRepository.loadItems(this);
+        functionsInfoScreenRepository.loadItems(this);
     }
 
+    /**
+     * Функция обработки нажатия на item
+     *
+     * @param position - позиция item
+     *
+     */
     @Override public void onItemSelected(int position) {
         pictureMvpView.showMessage(Integer.toString(position));
     }
