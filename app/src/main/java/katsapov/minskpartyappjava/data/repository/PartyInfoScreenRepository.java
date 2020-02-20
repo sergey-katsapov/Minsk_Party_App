@@ -1,11 +1,14 @@
-package katsapov.minskpartyappjava.model;
+package katsapov.minskpartyappjava.data.repository;
 
 import android.os.Handler;
+
 import java.util.ArrayList;
+
 import katsapov.minskpartyappjava.R;
+import katsapov.minskpartyappjava.data.entities.Picture;
 
 
-public class PictureInteractor implements Interactor {
+public class PartyInfoScreenRepository implements InfoScreenRepository {
 
     private final static String[] pictureNames = {
             "Rocket",

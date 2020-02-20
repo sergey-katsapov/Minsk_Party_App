@@ -1,19 +1,20 @@
-package katsapov.minskpartyappjava.presenter;
+package katsapov.minskpartyappjava.domain;
 
 import java.util.ArrayList;
 
-import katsapov.minskpartyappjava.model.FunctionsPictureInteractor;
-import katsapov.minskpartyappjava.model.LoaderListener;
-import katsapov.minskpartyappjava.model.Picture;
-import katsapov.minskpartyappjava.view.PictureMvpView;
+import katsapov.minskpartyappjava.data.entities.Picture;
+import katsapov.minskpartyappjava.data.repository.LoaderListener;
+import katsapov.minskpartyappjava.data.repository.PartyInfoScreenRepository;
+import katsapov.minskpartyappjava.presentation.PictureMvpView;
+import katsapov.minskpartyappjava.presentation.base.BasePresenter;
 
-public class FunctionsPicturePresenter implements Presenter<PictureMvpView>, LoaderListener {
+public class PartyItemInfoInteractor implements ItemInfoPresenter, BasePresenter<PictureMvpView>, LoaderListener {
 
     private PictureMvpView pictureMvpView;
-    private final FunctionsPictureInteractor functionsPictureInteractor;
+    private final PartyInfoScreenRepository зartyInfoScreenRepository;
 
-    public FunctionsPicturePresenter() {
-        functionsPictureInteractor = new FunctionsPictureInteractor();
+    public PartyItemInfoInteractor() {
+        зartyInfoScreenRepository = new PartyInfoScreenRepository();
     }
 
     @Override
@@ -29,7 +30,7 @@ public class FunctionsPicturePresenter implements Presenter<PictureMvpView>, Loa
 
     @Override public void onResume() {
         pictureMvpView.showProgress();
-        functionsPictureInteractor.loadItems(this);
+        зartyInfoScreenRepository.loadItems(this);
     }
 
     @Override public void onItemSelected(int position) {

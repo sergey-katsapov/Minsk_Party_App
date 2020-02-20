@@ -1,4 +1,4 @@
-package katsapov.minskpartyappjava.fragment;
+package katsapov.minskpartyappjava.presentation.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,27 +19,27 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import katsapov.minskpartyappjava.R;
-import katsapov.minskpartyappjava.adapter.AdapterExample;
-import katsapov.minskpartyappjava.model.Picture;
-import katsapov.minskpartyappjava.presenter.FunctionsPicturePresenter;
-import katsapov.minskpartyappjava.presenter.RecyclerItemClickListener;
-import katsapov.minskpartyappjava.view.PictureMvpView;
-import katsapov.minskpartyappjava.widget.ItemOffsetDecoration;
+import katsapov.minskpartyappjava.data.entities.Picture;
+import katsapov.minskpartyappjava.domain.PartyItemInfoInteractor;
+import katsapov.minskpartyappjava.presentation.PictureMvpView;
+import katsapov.minskpartyappjava.presentation.adapter.InfoScreenAdapter;
+import katsapov.minskpartyappjava.presentation.base.ItemClickListenerPresenter;
+import katsapov.minskpartyappjava.presentation.widget.ItemOffsetDecoration;
 
-
-public class FunctionalInfoFragment extends Fragment implements PictureMvpView, RecyclerItemClickListener {
+public class PartyInfoFragment extends Fragment implements PictureMvpView, ItemClickListenerPresenter {
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
-    private FunctionsPicturePresenter functionsPicturePresenter;
+    private PartyItemInfoInteractor partyInfoInteractor;
+    private RecyclerView.Adapter adapter;
 
     @Nullable
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayout(), container, false);
         ButterKnife.bind(this, rootView);
 
-        functionsPicturePresenter = new FunctionsPicturePresenter();
-        functionsPicturePresenter.attachedView(this);
+        partyInfoInteractor = new PartyItemInfoInteractor();
+        partyInfoInteractor.attachedView(this);
         setupRecyclerView();
 
         return rootView;
@@ -47,15 +47,14 @@ public class FunctionalInfoFragment extends Fragment implements PictureMvpView, 
 
     @Override public void onResume() {
         super.onResume();
-        functionsPicturePresenter.onResume();
+        partyInfoInteractor.onResume();
     }
 
     @Override public void setItems(ArrayList<Picture> pictureList) {
-        RecyclerView.Adapter adapter = getAdapter(pictureList);
+        adapter = getAdapter(pictureList);
         recyclerView.setAdapter(adapter);
-
-        if(adapter instanceof AdapterExample)
-            ((AdapterExample) adapter).setRecyclerItemClickListener(this);
+        if(adapter instanceof InfoScreenAdapter)
+            ((InfoScreenAdapter) adapter).setItemClickListenerPresenter(this);
     }
 
     @Override public void showProgress() {
@@ -73,17 +72,16 @@ public class FunctionalInfoFragment extends Fragment implements PictureMvpView, 
     }
 
     @Override public void onDestroy() {
-        functionsPicturePresenter.detachView();
+        partyInfoInteractor.detachView();
         super.onDestroy();
     }
 
     @Override
     public void onItemClickListener(int position) {
-        functionsPicturePresenter.onItemSelected(position);
+        partyInfoInteractor.onItemSelected(position);
     }
 
     private void setupRecyclerView() {
-        getLayoutManager();
         recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.addItemDecoration(new ItemOffsetDecoration(recyclerView.getContext(), R.dimen.item_decoration));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -97,14 +95,14 @@ public class FunctionalInfoFragment extends Fragment implements PictureMvpView, 
         return getLinearLayoutManager();
     }
 
-    private RecyclerView.Adapter getAdapter(ArrayList<Picture> pictureList) {
-        return new AdapterExample(pictureList, R.layout.functional_item);
-    }
-
     private LinearLayoutManager getLinearLayoutManager() {
         return new LinearLayoutManager(
                 getActivity(),
-                RecyclerView.VERTICAL,
+                LinearLayoutManager.HORIZONTAL,
                 false);
+    }
+
+    private RecyclerView.Adapter getAdapter(ArrayList<Picture> pictureList) {
+        return new InfoScreenAdapter(pictureList, R.layout.party_info_item);
     }
 }

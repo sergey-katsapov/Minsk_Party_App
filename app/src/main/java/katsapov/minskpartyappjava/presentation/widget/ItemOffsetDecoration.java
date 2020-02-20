@@ -1,4 +1,4 @@
-package katsapov.minskpartyappjava.widget;
+package katsapov.minskpartyappjava.presentation.widget;
 
 import android.content.Context;
 import android.graphics.Rect;

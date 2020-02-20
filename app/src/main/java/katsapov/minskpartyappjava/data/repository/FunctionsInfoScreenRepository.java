@@ -1,11 +1,14 @@
-package katsapov.minskpartyappjava.model;
+package katsapov.minskpartyappjava.data.repository;
 
 import android.os.Handler;
+
 import java.util.ArrayList;
+
 import katsapov.minskpartyappjava.R;
+import katsapov.minskpartyappjava.data.entities.Picture;
 
 
-public class FunctionsPictureInteractor implements Interactor {
+public class FunctionsInfoScreenRepository implements InfoScreenRepository {
 
     private final static String[] pictureNames = {
             "GPS\nTracking",
@@ -13,7 +16,7 @@ public class FunctionsPictureInteractor implements Interactor {
             "Telephone\nsecurity"
     };
 
-    private final static int pictureImages[] = {
+    private final static int[] pictureImages = {
             R.drawable.gps_button,
             R.drawable.sos_button,
             R.drawable.telephone_security
@@ -21,7 +24,7 @@ public class FunctionsPictureInteractor implements Interactor {
 
     @Override
     public void loadItems(final LoaderListener loaderListener) {
-        new Handler().postDelayed(() -> loaderListener.onFinished(createCollectionPictures()), 4000);
+        new Handler().postDelayed(() -> loaderListener.onFinished(createCollectionPictures()), 2000);
     }
 
     private ArrayList<Picture> createCollectionPictures() {

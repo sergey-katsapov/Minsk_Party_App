@@ -1,4 +1,4 @@
-package katsapov.minskpartyappjava.adapter;
+package katsapov.minskpartyappjava.presentation.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +14,20 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import katsapov.minskpartyappjava.R;
-import katsapov.minskpartyappjava.model.Picture;
-import katsapov.minskpartyappjava.presenter.RecyclerItemClickListener;
+import katsapov.minskpartyappjava.data.entities.Picture;
+import katsapov.minskpartyappjava.presentation.base.ItemClickListenerPresenter;
 
-public class AdapterExample extends RecyclerView.Adapter<AdapterExample.ExampleHolder> {
+public class InfoScreenAdapter extends RecyclerView.Adapter<InfoScreenAdapter.ExampleHolder> {
 
     private ArrayList<Picture> pictureArrayList;
     private int itemLayout;
-    private RecyclerItemClickListener recyclerItemClickListener;
+    private ItemClickListenerPresenter itemClickListenerPresenter;
 
-    public void setRecyclerItemClickListener(RecyclerItemClickListener recyclerItemClickListener) {
-        this.recyclerItemClickListener = recyclerItemClickListener;
+    public void setItemClickListenerPresenter(ItemClickListenerPresenter itemClickListenerPresenter) {
+        this.itemClickListenerPresenter = itemClickListenerPresenter;
     }
 
-    public AdapterExample(ArrayList<Picture> pictureArrayList, int itemLayout) {
+    public InfoScreenAdapter(ArrayList<Picture> pictureArrayList, int itemLayout) {
         this.pictureArrayList = pictureArrayList;
         this.itemLayout = itemLayout;
     }
@@ -65,8 +65,8 @@ public class AdapterExample extends RecyclerView.Adapter<AdapterExample.ExampleH
 
         @Override
         public void onClick(View view) {
-            if (recyclerItemClickListener != null)
-                recyclerItemClickListener.onItemClickListener(getAdapterPosition());
+            if (itemClickListenerPresenter != null)
+                itemClickListenerPresenter.onItemClickListener(getAdapterPosition());
         }
     }
 }

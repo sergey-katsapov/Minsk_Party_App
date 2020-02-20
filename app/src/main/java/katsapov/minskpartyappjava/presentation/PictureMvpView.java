@@ -1,7 +1,9 @@
-package katsapov.minskpartyappjava.view;
+package katsapov.minskpartyappjava.presentation;
 
 import java.util.ArrayList;
-import katsapov.minskpartyappjava.model.Picture;
+
+import katsapov.minskpartyappjava.data.entities.Picture;
+import katsapov.minskpartyappjava.presentation.base.BaseView;
 
 /**
  * Интерфейс работы view
@@ -12,7 +14,7 @@ import katsapov.minskpartyappjava.model.Picture;
  * @author Katsapov Sergey
  *
  */
-public interface PictureMvpView {
+public interface PictureMvpView extends BaseView {
     void setItems(ArrayList<Picture> pictureList);
     void showProgress();
     void hideProgress();
