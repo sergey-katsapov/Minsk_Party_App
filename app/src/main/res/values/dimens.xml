@@ -24,4 +24,14 @@
 
     //размер лого
     <dimen name="logo_w_h">100dp</dimen>
+
+    //authScreen
+    <dimen name="margin_left_auth_screen">50dp</dimen>
+    <dimen name="margin_right_auth_screen">50dp</dimen>
+    <dimen name="margin_bottom_auth_screen">30dp</dimen>
+    <dimen name="et_margin_bottom">10dp</dimen>
+    <dimen name="bt_margin_top">20dip</dimen>
+    <dimen name="screen_auth_text_size">15sp</dimen>
+    <dimen name="pb_width">30dp</dimen>
+    <dimen name="pb_height">30dp</dimen>
 </resources>

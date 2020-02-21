@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">"Minsk Party App"</string>
+
+    //InfoScreen
     <string name="list_of_party_name">"Event list "</string>
     <string name="functional_name">"App functions "</string>
 
-    //Authorization's strings
+    //AuthorizationScreen
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
@@ -14,5 +16,6 @@
     <string name="btn_link_to_login">Already registered. Login, please</string>
     <string name="btn_forgot_password">Forgot your password?</string>
     <string name="btn_reset_password">Reset Password</string>
+    <string name="title_menu_item_sign_out">Log out</string>
 
 </resources>

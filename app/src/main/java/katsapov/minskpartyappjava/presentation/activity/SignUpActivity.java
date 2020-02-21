@@ -44,6 +44,10 @@ public class SignUpActivity extends Activity implements SignUpView {
         signUpInteractor.signUp(email.getText().toString().trim(), password.getText().toString().trim());
     }
 
+    @OnClick(R.id.sign_in_button) void onLogInButtonClick() {
+        Utils.setIntent(this, LoginActivity.class);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

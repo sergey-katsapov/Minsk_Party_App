@@ -103,6 +103,6 @@ public class PartyInfoFragment extends Fragment implements PictureMvpView, ItemC
     }
 
     private RecyclerView.Adapter getAdapter(ArrayList<Picture> pictureList) {
-        return new InfoScreenAdapter(pictureList, R.layout.party_info_item);
+        return new InfoScreenAdapter(pictureList, R.layout.patry_info_item);
     }
 }
