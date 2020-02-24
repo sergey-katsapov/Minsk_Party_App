@@ -24,6 +24,7 @@ import katsapov.minskpartyappjava.domain.infoscreen.FunctionsItemInfoInteractor;
 import katsapov.minskpartyappjava.presentation.PictureMvpView;
 import katsapov.minskpartyappjava.presentation.adapter.InfoScreenAdapter;
 import katsapov.minskpartyappjava.presentation.base.ItemClickListenerPresenter;
+import katsapov.minskpartyappjava.presentation.common.SnapRecyclerItemHelper;
 import katsapov.minskpartyappjava.presentation.widget.ItemOffsetDecoration;
 
 
@@ -32,6 +33,7 @@ public class FunctionalInfoFragment extends Fragment implements PictureMvpView, 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
     private FunctionsItemInfoInteractor functionsInfoInteractor;
+    private SnapRecyclerItemHelper snapRecyclerItemHelper = new SnapRecyclerItemHelper();
 
     @Nullable
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class FunctionalInfoFragment extends Fragment implements PictureMvpView, 
         recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.addItemDecoration(new ItemOffsetDecoration(recyclerView.getContext(), R.dimen.item_decoration));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        snapRecyclerItemHelper.attachToRecyclerView(recyclerView);
     }
 
     private int getLayout() {
