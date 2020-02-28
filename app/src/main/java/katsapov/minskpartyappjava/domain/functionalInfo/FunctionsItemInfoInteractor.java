@@ -1,10 +1,11 @@
-package katsapov.minskpartyappjava.domain.infoscreen;
+package katsapov.minskpartyappjava.domain.functionalInfo;
 
 import java.util.ArrayList;
 
 import katsapov.minskpartyappjava.data.entities.Picture;
 import katsapov.minskpartyappjava.data.repository.FunctionsInfoScreenRepository;
 import katsapov.minskpartyappjava.data.repository.LoaderListener;
+import katsapov.minskpartyappjava.domain.ItemInfoPresenter;
 import katsapov.minskpartyappjava.presentation.PictureMvpView;
 import katsapov.minskpartyappjava.presentation.base.BasePresenter;
 

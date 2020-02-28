@@ -10,13 +10,13 @@ import katsapov.minskpartyappjava.data.entities.Picture;
 
 public class FunctionsInfoScreenRepository implements InfoScreenRepository {
 
-    private final static String[] pictureNames = {
+    public final static String[] pictureNames = {
             "GPS\nTracking",
             "S.O.S",
             "Telephone\nsecurity"
     };
 
-    private final static int[] pictureImages = {
+    public final static int[] pictureImages = {
             R.drawable.gps_button,
             R.drawable.sos_button,
             R.drawable.telephone_security

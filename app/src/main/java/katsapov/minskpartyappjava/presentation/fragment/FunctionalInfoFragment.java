@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import katsapov.minskpartyappjava.R;
 import katsapov.minskpartyappjava.data.entities.Picture;
-import katsapov.minskpartyappjava.domain.infoscreen.FunctionsItemInfoInteractor;
+import katsapov.minskpartyappjava.domain.functionalInfo.FunctionsItemInfoInteractor;
 import katsapov.minskpartyappjava.presentation.PictureMvpView;
 import katsapov.minskpartyappjava.presentation.adapter.InfoScreenAdapter;
 import katsapov.minskpartyappjava.presentation.base.ItemClickListenerPresenter;

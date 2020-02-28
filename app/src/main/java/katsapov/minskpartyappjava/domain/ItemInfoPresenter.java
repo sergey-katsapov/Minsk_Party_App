@@ -1,4 +1,4 @@
-package katsapov.minskpartyappjava.domain.infoscreen;
+package katsapov.minskpartyappjava.domain;
 
 /**
  * Интерфейс работы при выборе info_item
