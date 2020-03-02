@@ -21,7 +21,7 @@
             android:id="@+id/pb_load_info_party_item"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:visibility="visible" />
 
         <TextView
