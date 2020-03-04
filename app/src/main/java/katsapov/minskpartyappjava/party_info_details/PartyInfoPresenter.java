@@ -1,6 +1,8 @@
 package katsapov.minskpartyappjava.party_info_details;
 
-
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import katsapov.minskpartyappjava.R;
 import katsapov.minskpartyappjava.data.entities.partyInfo.Feed;
 
 public class PartyInfoPresenter implements PartyInfoContract.Presenter, PartyInfoContract.Model.OnFinishedListener {
@@ -19,27 +21,26 @@ public class PartyInfoPresenter implements PartyInfoContract.Presenter, PartyInf
     }
 
     @Override
-    public void requestMovieData() {
-        if(partyInfoView != null){
+    public void getPartyInfoData() {
+        if (partyInfoView != null) {
             partyInfoView.showProgress();
         }
-        partyInfoModel.getPartyInfoDetails(this);
+        partyInfoModel.getPartyInfoDetails()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(feeds -> {
+                    partyInfoView.updateAdapter();
+                    onFinished(feeds);
+                }, Throwable::printStackTrace);
     }
 
     @Override
     public void onFinished(Feed feed) {
-        if(partyInfoView != null){
+        if (partyInfoView != null) {
             partyInfoView.hideProgress();
+            partyInfoView.getAllFeedInfoRX(feed);
+        } else {
+            throw new RuntimeException(String.valueOf(R.string.view_not_found_exception));
         }
-        partyInfoView.setDataToViews(feed);
-    }
-
-
-    @Override
-    public void onFailure(Throwable t) {
-        if(partyInfoView != null){
-            partyInfoView.hideProgress();
-        }
-        partyInfoView.onResponseFailure(t);
     }
 }

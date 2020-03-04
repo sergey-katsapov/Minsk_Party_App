@@ -1,14 +1,10 @@
 package katsapov.minskpartyappjava.presentation.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,20 +13,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
-
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import katsapov.minskpartyappjava.R;
 import katsapov.minskpartyappjava.data.entities.partyInfo.Feed;
 import katsapov.minskpartyappjava.data.entities.partyInfo.children.Children;
-import katsapov.minskpartyappjava.data.entities.partyInfo.children.Data;
 import katsapov.minskpartyappjava.party_info_details.PartyInfoContract;
 import katsapov.minskpartyappjava.party_info_details.PartyInfoPresenter;
 import katsapov.minskpartyappjava.presentation.adapter.PartyInfoScreenAdapter;
@@ -42,8 +32,6 @@ public class PartyInfoFragment extends Fragment implements PartyInfoContract.Vie
 
     private RecyclerView recyclerView;
     private SnapRecyclerItemHelper snapRecyclerItemHelper = new SnapRecyclerItemHelper();
-    private TextView tvInfoPartyItemTitle;
-    private ImageView ivInfoPartyItem;
     private ArrayList<Feed> feedList;
     private PartyInfoPresenter partyInfoPresenter;
     private ProgressBar pbInfoPartyItemLoad;
@@ -57,55 +45,34 @@ public class PartyInfoFragment extends Fragment implements PartyInfoContract.Vie
 
         recyclerView = baseView.findViewById(R.id.recycler_view);
         pbInfoPartyItemLoad = itemView.findViewById(R.id.pb_load_info_party_item);
-        tvInfoPartyItemTitle = itemView.findViewById(R.id.tv_info_party_item_title);
-        ivInfoPartyItem = itemView.findViewById(R.id.iv_info_party_item);
         feedList = new ArrayList<>();
 
         partyInfoScreenAdapter = getAdapter(feedList);
         recyclerView.setAdapter(partyInfoScreenAdapter);
-
         setupRecyclerView();
-        requestPartyInfoData();
+        getPartyInfoData();
 
         return baseView;
     }
 
+    /**
+     * Получение Feed данных в вспомогательном потоке
+     *
+     * @author Katsapov Sergey
+     */
+    //TODO import in presenter
     @Override
-    public void setDataToViews(Feed feed) {
-        if (feed != null) {
-            ArrayList<Children> listOfChildren = feed.getData().getChildren();
-            ArrayList<Feed> listOfFeeds = new ArrayList<Feed>();
+    public void getAllFeedInfoRX(Feed feed) {
+        getAllFeedInfo(feed)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(feeds -> {
+                }, Throwable::printStackTrace);
+    }
 
-            for (int i = 0; i < listOfChildren.size(); i++) {
-                Children positionChild = listOfChildren.get(i);
-                Data data = positionChild.getData();
-                tvInfoPartyItemTitle.setText(data.getTitle());
-
-                Glide.with(this)
-                        .load(data.getThumbnail())
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                pbInfoPartyItemLoad.setVisibility(View.GONE);
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                pbInfoPartyItemLoad.setVisibility(View.GONE);
-                                return false;
-                            }
-                        })
-                        .apply(new RequestOptions().placeholder(R.drawable.ic_place_holder).error(R.drawable.ic_place_holder))
-                        .apply(RequestOptions.skipMemoryCacheOf(true))
-                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                        .into(ivInfoPartyItem);
-                listOfFeeds.add(feed);
-            }
-            feedList.clear();
-            feedList.addAll(listOfFeeds);
-            partyInfoScreenAdapter.notifyDataSetChanged();
-        }
+    @Override
+    public void updateAdapter() {
+        partyInfoScreenAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -131,13 +98,52 @@ public class PartyInfoFragment extends Fragment implements PartyInfoContract.Vie
         recyclerView.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onResponseFailure(Throwable throwable) {
-        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onItemClickListener(int position) { }
+
+    /**
+     * Получение информации с сервиса через презентер
+     *
+     * @author Katsapov Sergey
+     */
+    //TODO import in presenter
+    private void getPartyInfoData() {
+        partyInfoPresenter = new PartyInfoPresenter(this);
+        partyInfoPresenter.getPartyInfoData();
+    }
+
+    /**
+     * Получаем Feed и для него через .flatMap
+     * берем данные с помощью функции
+     * {@link  #getListOfFeed(Feed)}
+     *
+     * @author Katsapov Sergey
+     * @date 04/03/2020
+     */
+    //TODO import in presenter
+    private Observable<ArrayList<Feed>> getAllFeedInfo(Feed feed) {
+        return Observable.just(feed)
+                .doOnError(Throwable::printStackTrace)
+                .flatMap(feed1 -> Observable.just(getListOfFeed(feed1)));
+    }
+
+    /**
+     * Для каждого элемента Feed собираем его список полной информации
+     *
+     * @author Katsapov Sergey
+     * * @date 04/03/2020
+     */
+    private ArrayList<Feed> getListOfFeed(Feed feed) {
+        ArrayList<Children> listOfChildren = feed.getData().getChildren();
+        ArrayList<Feed> listOfFeeds = new ArrayList<>();
+        for (int i = 0; i < listOfChildren.size(); i++) {
+            listOfFeeds.add(feed);
+        }
+        feedList.clear();
+        feedList.addAll(listOfFeeds);
+        return feedList;
+    }
 
     private RecyclerView.LayoutManager getLayoutManager() {
         return getLinearLayoutManager();
@@ -145,16 +151,6 @@ public class PartyInfoFragment extends Fragment implements PartyInfoContract.Vie
 
     private PartyInfoScreenAdapter getAdapter(ArrayList<Feed> feedList) {
         return new PartyInfoScreenAdapter(this.getActivity(), feedList);
-    }
-
-    /**
-     * Получение информации с сервиса через презентер
-     *
-     * @author Katsapov Sergey
-     */
-    private void requestPartyInfoData() {
-        partyInfoPresenter = new PartyInfoPresenter(this);
-        partyInfoPresenter.requestMovieData();
     }
 
     private void setupRecyclerView() {

@@ -1,13 +1,9 @@
 package katsapov.minskpartyappjava.party_info_details;
 
-import android.util.Log;
-
+import io.reactivex.Single;
 import katsapov.minskpartyappjava.data.entities.partyInfo.Feed;
 import katsapov.minskpartyappjava.data.network.ApiClient;
 import katsapov.minskpartyappjava.data.network.ApiInterface;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * @file PartyInfoModel.java
@@ -17,27 +13,9 @@ import retrofit2.Response;
  */
 public class PartyInfoModel implements PartyInfoContract.Model {
 
-    private final String TAG = "PartyInfoModel";
-
     @Override
-    public void getPartyInfoDetails(final OnFinishedListener onFinishedListener) {
-
+    public Single<Feed> getPartyInfoDetails() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<Feed> call = apiService.getData();
-        call.enqueue(new Callback<Feed>() {
-            @Override
-            public void onResponse(Call<Feed> call, Response<Feed> response) {
-                Feed feed = response.body();
-                Log.d(TAG, "Feed data: " + feed.toString());
-                onFinishedListener.onFinished(feed);
-            }
-
-            @Override
-            public void onFailure(Call<Feed> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                onFinishedListener.onFailure(t);
-            }
-        });
+        return apiService.getData();
     }
 }

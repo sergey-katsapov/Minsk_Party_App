@@ -1,5 +1,6 @@
 package katsapov.minskpartyappjava.party_info_details;
 
+import io.reactivex.Single;
 import katsapov.minskpartyappjava.data.entities.partyInfo.Feed;
 
 /**
@@ -13,20 +14,19 @@ public interface PartyInfoContract {
     interface Model {
         interface OnFinishedListener {
             void onFinished(Feed feed);
-            void onFailure(Throwable t);
         }
-        void getPartyInfoDetails(OnFinishedListener onFinishedListener);
+        Single<Feed> getPartyInfoDetails();
     }
 
     interface View {
         void showProgress();
         void hideProgress();
-        void setDataToViews(Feed feed);
-        void onResponseFailure(Throwable throwable);
+        void getAllFeedInfoRX(Feed feed); //TODO presenter!
+        void updateAdapter();
     }
 
     interface Presenter {
         void onDestroy();
-        void requestMovieData();
+        void getPartyInfoData();
     }
 }
