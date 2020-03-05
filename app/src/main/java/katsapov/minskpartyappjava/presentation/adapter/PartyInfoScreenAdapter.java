@@ -39,6 +39,11 @@ public class PartyInfoScreenAdapter extends RecyclerView.Adapter<PartyInfoScreen
         this.feedList = feedList;
     }
 
+    public void setData(ArrayList<Feed> list) {
+        feedList = list;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public PartyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

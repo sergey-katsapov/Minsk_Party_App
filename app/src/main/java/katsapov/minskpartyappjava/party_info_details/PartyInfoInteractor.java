@@ -6,12 +6,11 @@ import katsapov.minskpartyappjava.data.network.ApiClient;
 import katsapov.minskpartyappjava.data.network.ApiInterface;
 
 /**
- * @file PartyInfoModel.java
  * Это класс получения данных для  формирования моедели экрана мероприятий
  * @author Katsapov Sergey
  * @date 28.02.2020
  */
-public class PartyInfoModel implements PartyInfoContract.Model {
+public class PartyInfoInteractor implements PartyInfoContract.Model {
 
     @Override
     public Single<Feed> getPartyInfoDetails() {

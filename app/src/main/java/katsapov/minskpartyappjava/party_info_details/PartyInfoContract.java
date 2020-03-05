@@ -1,5 +1,7 @@
 package katsapov.minskpartyappjava.party_info_details;
 
+import java.util.ArrayList;
+
 import io.reactivex.Single;
 import katsapov.minskpartyappjava.data.entities.partyInfo.Feed;
 
@@ -12,17 +14,13 @@ import katsapov.minskpartyappjava.data.entities.partyInfo.Feed;
 public interface PartyInfoContract {
 
     interface Model {
-        interface OnFinishedListener {
-            void onFinished(Feed feed);
-        }
         Single<Feed> getPartyInfoDetails();
     }
 
     interface View {
         void showProgress();
         void hideProgress();
-        void getAllFeedInfoRX(Feed feed); //TODO presenter!
-        void updateAdapter();
+        void setData(ArrayList<Feed> list);
     }
 
     interface Presenter {
